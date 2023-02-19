@@ -3,9 +3,11 @@ import axios from 'axios';
 const mainURL = 'https://api.themoviedb.org/3/';
 const media_type_values = ['all', 'movie', 'TV', 'person'];
 const time_window_values = ['day', 'week'];
-const api_KEY = '1a6a0e252669dea132492bf96fa96565';
+const api_KEY = '?api_key=1a6a0e252669dea132492bf96fa96565';
 const media_type = media_type_values[1];
 const time_window = time_window_values[0];
+const trendingURL =
+  'https://api.themoviedb.org/3/trending/movie/day?api_key=1a6a0e252669dea132492bf96fa96565';
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3/trending/movie/day?api_key=1a6a0e252669dea132492bf96fa96565',
@@ -15,23 +17,21 @@ const instance = axios.create({
   },
 });
 
-export const searchNewImages = async (search = '', page = 1, per_page = 6) => {
-  const data = await instance.get('', {
+export const searchByIdType = async (media_type, id) => {
+  const url = mainURL + media_type + '/' + id + api_KEY;
+  const data = await instance.get(url, {
     params: {
-      q: search,
-      per_page: per_page,
-      page: page,
+      language: 'en-US',
     },
   });
   return data;
 };
 
-export const startImages = async () => {
-  const data = await instance.get('', {
+export const homePageMovies = async () => {
+  const data = await instance.get(trendingURL, {
     // params: {
     //   per_page: per_page,
     // },
   });
-  console.log('startImages', data);
   return data;
 };

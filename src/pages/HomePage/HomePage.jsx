@@ -1,6 +1,6 @@
-import styles from './home_page.module.css';
+import Movies from 'Modules/Movies/Movies';
 
 const HomePage = () => {
-  return <h2> HomePage</h2>;
+  return <Movies  />;
 };
 export default HomePage;

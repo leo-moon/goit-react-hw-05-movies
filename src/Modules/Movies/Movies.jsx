@@ -1,17 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import styles from './movies.module.scss';
 
 // import Modal from 'shared/components/Modal/Modal';
-import Image from './Image/Image';
-import Navbar from 'Modules/Navbar/Navbar';
-import HomePage from 'pages/HomePage/HomePage';
-import MoviePage from 'pages/MoviePage/MoviePage';
-import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
+// import Image from './Image/Image';
 
-import Searchbar from './Searchbar/Searchbar';
+// import Searchbar from './Searchbar/Searchbar';
 import MoviesList from './MoviesList/MoviesList';
-import { startImages } from '../../shared/services/image-api';
-import { searchNewImages } from '../../shared/services/image-api';
+import { homePageMovies } from '../../shared/services/movies-api';
+import { searchNewImages } from '../../shared/services/movies-api';
 import Button from './ButtonLoad/ButtonLoad';
 import Loader from './Loader/Loader';
 
@@ -27,33 +24,37 @@ const Movies = () => {
   const [image, setImage] = useState(null);
   const [total, setTotal] = useState(0);
   const per_page = 20;
-  const [items, setItems] = useState(() => {
-    const fetchImagesStart = async () => {
-      try {
-        setLoading(true);
-        const { data } = await startImages();
-        const results = [...data.results] ? [...data.results] : [];
-        console.log('results', results);
-        setTotal(0);
-        // setItems([...results]);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    // console.log('items', items);
-    fetchImagesStart();
-  });
+  const [items, setItems] = useState([]);
+  //   () => {
+  //   const fetchImagesStart = async () => {
+  // try {
+  //   setLoading(true);
+  //   const { data } = await startImages();
+  //   const results = [...data.results] ? [...data.results] : [];
+  //   console.log('results', results);
+  //   setTotal(0);
+  //   setItems([...results]);
+  // } catch (error) {
+  //   setError(error.message);
+  // } finally {
+  //   setLoading(false);
+  // }
+  //   };
+  //   // console.log('items', items);
+  //   fetchImagesStart();
+  // });
 
   useEffect(() => {
-    if (search) {
+    // if (search) {
       const fetchImages = async () => {
         try {
           setLoading(true);
-          const { data } = await searchNewImages(search, page);
-          setItems(prevItems => [...prevItems, ...data.hits]);
-          setTotal(data.totalHits);
+          const { data } = await homePageMovies();
+          const results = [...data.results] ? [...data.results] : [];
+          // console.log('results', results);
+          setTotal(0);
+          setItems([ ...results]);
+          // console.log('results useEffect', items);
         } catch (error) {
           setError(error.message);
         } finally {
@@ -61,62 +62,92 @@ const Movies = () => {
         }
       };
       fetchImages();
-    }
-  }, [search, page]);
-
-  const searchImages = useCallback(({ search }) => {
-    setSearch(search);
-    setItems([]);
-    setPage(1);
+    // }
   }, []);
+  // try {
+  //   setLoading(true);
+  //   const { data } = await searchNewImages(search, page);
+  //   setItems(prevItems => [...prevItems, ...data.hits]);
+  //   setTotal(data.totalHits);
+  // } catch (error) {
+  //   setError(error.message);
+  // } finally {
+  //   setLoading(false);
+  // }
 
-  const changePage = () => {
-    setPage(page + 1);
-  };
+  // const searchImages = useCallback(({ search }) => {
+  //   setSearch(search);
+  //   setItems([]);
+  //   setPage(1);
+  // }, []);
 
-  const showLoadButton = () => {
-    if (total <= page * per_page) {
-      console.log(total, 'total');
-      return false;
-    }
-    return true;
-  };
+  // const changePage = () => {
+  //   setPage(page + 1);
+  // };
 
-  const closeModal = () => {
-    setShowModal(false);
-    setImage(null);
-  };
-
-  const showBigImage = useCallback(({ largeImageURL }) => {
-    setImage(largeImageURL);
-    setShowModal(true);
-  }, []);
-
+  const elements = items.map(
+    ({
+      id,
+      backdrop_path,
+      media_type,
+      original_language,
+      original_title,
+      overview,
+      poster_path,
+      title,
+    }) => (
+      <Link key={id} to={`/${media_type}/${id}`}>
+        <li className={styles.item}>
+            <h3> {title}</h3>
+            {/* <p>{id}</p>
+            <p>{media_type}</p> */}
+        </li>
+      </Link>
+    )
+  );
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movie" element={<MoviePage />} />
-        
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      {/* <Searchbar onSubmit={searchImages} />
-      {error && <p>Something goes wrong</p>} */}
-      {/* 
-      {loading && <Loader />}
-      {!loading && <MoviesList items={items} showBigImage={showBigImage} />} */}
-
-      {/* {!loading && showLoadButton() && (
-        <Button changePage={changePage} text="Load more"></Button>
-      )} */}
-      {/* {showModal && (
-        <Modal close={closeModal}>
-          <Image Image={Image} />
-        </Modal>
-      )} */}
-    </BrowserRouter>
+    <ul className={styles.gallery}>
+      {elements}
+    </ul>
   );
 };
 
 export default Movies;
+    
+
+
+
+
+
+
+  //   <Searchbar onSubmit={searchImages} />
+  //   {error && <p>Something goes wrong</p>} 
+
+  //   {loading && <Loader />}
+  //   {!loading && <MoviesList items={items} />}
+  //   {!loading && <MoviesList items={items} showBigImage={showBigImage} />}
+
+  //      {!loading && showLoadButton() && (
+  //       <Button changePage={changePage} text="Load more"></Button>)} 
+  //     {showModal && (
+  //       <Modal close={closeModal}>
+  //         <Image Image={Image} />
+  //   </Modal>)
+  // }
+// const showLoadButton = () => {
+//   if (total <= page * per_page) {
+//     console.log(total, 'total');
+//     return false;
+//   }
+//   return true;
+// };
+
+// const closeModal = () => {
+//   setShowModal(false);
+//   setImage(null);
+// };
+
+// const showBigImage = useCallback(({ largeImageURL }) => {
+//   setImage(largeImageURL);
+//   setShowModal(true);
+// }, []);
