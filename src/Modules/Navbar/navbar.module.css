@@ -1,0 +1,19 @@
+.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+}
+
+.item {
+  display: inline-block;
+  padding: 7px 10px;
+  font-size: 18px;
+  color: brown;
+}
+
+.item:global(.active) {
+  font-weight: normal;
+  color: red;
+}
