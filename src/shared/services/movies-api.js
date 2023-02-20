@@ -20,7 +20,20 @@ const instance = axios.create({
   // },
 });
 
-export const searchByTitle = async (search, media_type = 'movie' ) => {
+
+// api_key=<<api_key>>&language=en-US
+export const searchCastById = async (media_type = 'movie', id) => {
+  const url = mainURL + media_type + '/' + id + '/credits' + api_KEY;
+  const { data } = await instance.get(url, {
+    params: {
+      language: 'en-US',
+    },
+  });
+  console.log('searchCast', data);
+  return data;
+};
+
+export const searchByTitle = async (search, media_type  ) => {
   const url =
     mainURL + 'search/' + media_type + api_KEY;
   console.log('searchByTitle', url);

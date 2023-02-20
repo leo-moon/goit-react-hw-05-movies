@@ -1,12 +1,16 @@
 import { useState, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import SearchbarForm from './SearchbarForm';
 import ImageGallery from './ImageGallery/ImageGallery';
 import { searchByTitle } from '../../shared/services/movies-api';
 
-const Searchbar = () => {
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
+const Searchbar = ({ media_type }) => {
+  const [searchParams, setSearchParams] = useSearchParams('');
+  const search = searchParams.get('search');
+  const page = searchParams.get('page');
+
+  // const [page, setPage] = useState(1);
   const [items, setItems] = useState();
   const [showModal, setShowModal] = useState(false);
   const [imageBig, setImageBig] = useState(null);
@@ -15,7 +19,7 @@ const Searchbar = () => {
       const fetchImages = async () => {
         try {
           //   setLoading(true);
-          const { data } = await searchByTitle(search);
+          const { data } = await searchByTitle(search, media_type);
           const results = [...data.results] ? [...data.results] : [];
           // console.log('results', results);
           setItems([...results]);
@@ -31,9 +35,8 @@ const Searchbar = () => {
   }, [search, page]);
 
   const searchImages = useCallback(({ search }) => {
-    setSearch(search);
+    setSearchParams({ search, page: 1 });
     setItems([]);
-    setPage(1);
   }, []);
 
   // const showBigImage = useCallback(({ largeImageURL }) => {
@@ -44,7 +47,7 @@ const Searchbar = () => {
   return (
     <>
       <SearchbarForm onSubmit={searchImages} />
-      {items && <ImageGallery items={items} />}
+      {items && <ImageGallery items={items} media_type={media_type} />}
     </>
   );
 };

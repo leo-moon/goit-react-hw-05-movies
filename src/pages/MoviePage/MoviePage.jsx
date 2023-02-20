@@ -4,7 +4,7 @@ import Searchbar from '../../Modules/Searchbar/Searchbar';
 const MoviePage = () => {
   return (
     <>
-      <Searchbar />
+      <Searchbar media_type="movie" />
     </>
   );
 };
