@@ -54,7 +54,7 @@ const Movies = () => {
           // console.log('results', results);
           setTotal(0);
           setItems([ ...results]);
-          // console.log('results useEffect', items);
+          console.log('results useEffect', items);
         } catch (error) {
           setError(error.message);
         } finally {
