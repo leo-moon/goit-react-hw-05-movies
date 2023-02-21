@@ -6,7 +6,7 @@ import Loader from 'Modules/Movies/Loader/Loader';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const MoviePage = lazy(() => import('../pages/MoviePage/MoviePage'));
 const TVPage = lazy(() => import('pages/TV/Tv'));
-const SingleMoviePage = lazy(() => import('../pages/SingleMoviePage/SingleMoviePage'));
+const SingleMoviePage = lazy(() => import('../pages/MovieDetails/MovieDetails'));
 const CastPage = lazy(() => import('pages/CastPage/CastPage'));
 const ReviewPage = lazy(() => import('pages/ReviewsPage/ReviewsPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
