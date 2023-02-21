@@ -71,7 +71,7 @@ const SingleMoviePage = () => {
     <>
       <button onClick={goBack}>Go back</button>
       <div className={styles.div}>
-        <img src={urlImage} alt="poster" />
+        <img  className={styles.image} src={urlImage} alt="poster" />
         <div>
           <h2>
             {movieData?.title} ({date})

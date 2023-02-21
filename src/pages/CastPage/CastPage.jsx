@@ -24,15 +24,11 @@ const CastPage = () => {
   const basicUrl = 'https://image.tmdb.org/t/p/w500';
   const elements = data.map(({ id, name, profile_path, character }) => (
     <li key={id} className={styles.li}>
-      <img
-        className={styles.cast}
-        src={basicUrl + profile_path}
-        alt="actor"
-      />
+      <img className={styles.cast} src={basicUrl + profile_path} alt="actor" />
       <div>
-        <h3>{name}</h3>
-        <h4>
-          {character  && `Character: ${character}`}
+        <h3 className={styles.character}>{name}</h3>
+        <h4 className={styles.character}>
+          {character && `Character: ${character}`}
         </h4>
       </div>
     </li>
