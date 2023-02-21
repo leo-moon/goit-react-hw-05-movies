@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, Outlet } from 'react-router-dom';
 
 // import Loader from './Loader/Loader';
 
-import { searchByIdType, poster } from '../../shared/services/movies-api';
+import { searchByIdType, makeImageUrl } from '../../shared/services/movies-api';
 import styles from './single-movie-page.module.css';
 
 const SingleMoviePage = () => {
@@ -33,11 +33,21 @@ const SingleMoviePage = () => {
     return;
   }
 
-  console.log(movieData);
-  const { homepage, poster_path, release_date, vote_average, genres } =
-    movieData;
-  const urlImage = homepage + poster_path;
-  const date = release_date.slice(0, 4);
+  console.log('SingleMoviePage   movieData', movieData);
+  const {
+    poster_path,
+    release_date,
+    first_air_date,
+    vote_average,
+    genres,
+  } = movieData;
+
+  console.log('poster_path', poster_path);
+  const urlImage = makeImageUrl(poster_path);
+  const date = release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4) 
+  // const title =
+
+
   const popularityRound = Math.round(parseInt(vote_average * 10));
 
   let genresArray = '';
@@ -49,8 +59,8 @@ const SingleMoviePage = () => {
   return (
     <>
       <button onClick={() => navigate(-1)}>Go back</button>
-      <div>
-        {/* <img src={urlImage} alt="poster" /> */}
+      <div className={styles.div}>
+        <img src={urlImage} alt="poster" />
         <div>
           <h2>
             {movieData?.title} ({date})
@@ -63,12 +73,11 @@ const SingleMoviePage = () => {
           <p>{genresArray}</p>
         </div>
       </div>
-      <ul>
+      <ul className={styles.ul}>
         Additional information
         <Link className={styles.li} to="cast">
           Cast
         </Link>
-        <Outlet />
         <Link className={styles.li} to="reviews">
           Reviews
         </Link>

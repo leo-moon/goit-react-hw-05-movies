@@ -1,0 +1,24 @@
+button {
+    padding: 5px 8px;
+    font-size: 15px;
+    margin: 10px 40px;
+}
+
+img {
+    max-width: 420px;
+    margin: 0 20px;
+}
+
+.div {
+    display: flex;
+}
+
+.ul {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.li {
+    margin: 5px 10px;
+}

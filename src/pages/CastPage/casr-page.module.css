@@ -1,0 +1,8 @@
+.cast {
+    width: calc(10%);
+}
+
+.li {
+    display: flex;
+    margin-top: 15px;
+}

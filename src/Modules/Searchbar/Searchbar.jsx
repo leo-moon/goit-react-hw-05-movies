@@ -8,12 +8,12 @@ import { searchByTitle } from '../../shared/services/movies-api';
 const Searchbar = ({ media_type }) => {
   const [searchParams, setSearchParams] = useSearchParams('');
   const search = searchParams.get('search');
-  const page = searchParams.get('page');
+  // const page = searchParams.get('page');
 
   // const [page, setPage] = useState(1);
   const [items, setItems] = useState();
-  const [showModal, setShowModal] = useState(false);
-  const [imageBig, setImageBig] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
+  // const [imageBig, setImageBig] = useState(null);
   useEffect(() => {
     if (search) {
       const fetchImages = async () => {
@@ -21,7 +21,7 @@ const Searchbar = ({ media_type }) => {
           //   setLoading(true);
           const { data } = await searchByTitle(search, media_type);
           const results = [...data.results] ? [...data.results] : [];
-          // console.log('results', results);
+          console.log('results', results);
           setItems([...results]);
           //   setTotal(data.totalHits);
         } catch ({ response }) {
@@ -32,7 +32,7 @@ const Searchbar = ({ media_type }) => {
       };
       fetchImages();
     }
-  }, [search, page]);
+  }, [setItems]);
 
   const searchImages = useCallback(({ search }) => {
     setSearchParams({ search, page: 1 });

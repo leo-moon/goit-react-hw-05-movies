@@ -1,24 +1,9 @@
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       HI
-//     </div>
-//   );
-// };
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Navbar from '../Modules/Navbar/Navbar';
 import HomePage from '../pages/HomePage/HomePage';
 import MoviePage from '../pages/MoviePage/MoviePage';
+import TVPage from 'pages/TV/Tv';
 import SingleMoviePage from '../pages/SingleMoviePage/SingleMoviePage';
 import CastPage from 'pages/CastPage/CastPage';
 import ReviewPage from 'pages/ReviewsPage/ReviewsPage';
@@ -32,8 +17,10 @@ export function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movie" element={<MoviePage />} />
+        <Route path="/tv" element={<TVPage />} />
         <Route path="/:media_type/:id" element={<SingleMoviePage />}>
           <Route path="cast" element={<CastPage />} />
+          <Route path="reviews" element={<ReviewPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { searchCastById } from '../../shared/services/movies-api';
 import styles from './casr-page.module.css';
@@ -13,20 +13,29 @@ const CastPage = () => {
     const searchCast = async () => {
       try {
         const { cast } = await searchCastById(media_type, id);
-        setData(cast);
+        setData([...cast]);
       } catch ({ response }) {
         console.log(response.error.message);
       }
     };
     searchCast();
-  });
-  const elements = data.map(({ id, name, profile_path }) => (
-    <li key={id}>
-      <img src="profile_path" alt="actor" />
-      <h3>{name}</h3>
+  }, []);
+  console.log(data);
+  const basicUrl = 'https://image.tmdb.org/t/p/w500';
+  const elements = data.map(({ id, name, profile_path, character }) => (
+    <li key={id} className={styles.li}>
+      <img
+        className={styles.cast}
+        src={basicUrl + profile_path}
+        alt="    actor photo"
+      />
+      <div>
+        <h3>{name}</h3>
+        <h4>Character: {character}</h4>
+      </div>
     </li>
   ));
-  return <p>CastPage</p>;
+  return <ul>{elements}</ul>;
 };
 
 export default CastPage;

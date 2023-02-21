@@ -11,6 +11,11 @@ const itemsNavbar = [
     text: 'Movie',
     link: '/movie',
   },
+  {
+    id: nanoid(),
+    text: 'TV',
+    link: '/tv',
+  },
 ];
 
 export default itemsNavbar;
