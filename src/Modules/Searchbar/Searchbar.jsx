@@ -42,10 +42,6 @@ const Searchbar = ({ media_type }) => {
     [setSearchParams]
   );
 console.log(page);
-  // const showBigImage = useCallback(({ largeImageURL }) => {
-  //   setImageBig(largeImageURL);
-  //   setShowModal(true);
-  // }, []);
 
   return (
     <>
