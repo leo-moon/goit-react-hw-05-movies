@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import SearchbarForm from './SearchbarForm';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from 'Modules/Movies/ButtonLoad/ButtonLoad';
 import { searchByTitle } from '../../shared/services/movies-api';
 
 const Searchbar = ({ media_type }) => {
@@ -15,13 +16,13 @@ const Searchbar = ({ media_type }) => {
   // const [showModal, setShowModal] = useState(false);
   // const [imageBig, setImageBig] = useState(null);
   useEffect(() => {
-    if (search) {
+    if (search || page) {
       const fetchImages = async () => {
         try {
           //   setLoading(true);
-          const { data } = await searchByTitle(search, media_type);
+          const { data } = await searchByTitle(search, media_type, page);
           const results = [...data.results] ? [...data.results] : [];
-          console.log('results', results);
+          // console.log('results', results);
           setItems([...results]);
           //   setTotal(data.totalHits);
         } catch ({ response }) {
@@ -32,7 +33,7 @@ const Searchbar = ({ media_type }) => {
       };
       fetchImages();
     }
-  }, [search, media_type]);
+  }, [search, page, media_type]);
 
   const searchImages = useCallback(
     ({ search }) => {
@@ -41,12 +42,21 @@ const Searchbar = ({ media_type }) => {
     },
     [setSearchParams]
   );
-console.log(page);
+
+  const changePage = () => {
+    const newPage = parseInt( page ) + 1;
+    console.log(newPage,'changePage',page);
+    setSearchParams({ search, page: newPage });
+  };
+
+  
 
   return (
     <>
       <SearchbarForm onSubmit={searchImages} />
       {items && <ImageGallery items={items} media_type={media_type} />}
+      {items && <Button changePage={changePage} text="Load more"></Button>}
+      
     </>
   );
 };

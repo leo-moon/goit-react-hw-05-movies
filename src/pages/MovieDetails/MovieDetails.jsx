@@ -22,9 +22,9 @@ const SingleMoviePage = () => {
   const from  = location.state?.from || '/' ;
 
   const params = useParams();
-  console.log('SingleMoviePage   location ', location);
-  console.log('SingleMoviePage    from', from);
-  console.log('SingleMoviePage  navigate, ', navigate);
+  // console.log('SingleMoviePage   location ', location);
+  // console.log('SingleMoviePage    from', from);
+  // console.log('SingleMoviePage  navigate, ', navigate);
 
   const { media_type, id } = params;
   useEffect(() => {

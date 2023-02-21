@@ -51,13 +51,14 @@ export const searchCastById = async (media_type = 'movie', id) => {
   return data;
 };
 
-export const searchByTitle = async (search, media_type) => {
+export const searchByTitle = async (search, media_type, page) => {
   const url = mainURL + 'search/' + media_type + api_KEY;
   console.log('searchByTitle', url);
   const data = await instance.get(url, {
     params: {
       language: 'en-US',
       query: search,
+      page: page
     },
   });
   console.log('searchByTitle', data);

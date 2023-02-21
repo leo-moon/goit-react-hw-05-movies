@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 // import styles from './movies.module.scss';
 
 const ImageGallery = ({ items, media_type }) => {
-  console.log('ImageGallery,', items, media_type);
+  console.log('ImageGallery, items', items, media_type);
   const location = useLocation();
   console.log('location',location);
   const elements = items.map(
