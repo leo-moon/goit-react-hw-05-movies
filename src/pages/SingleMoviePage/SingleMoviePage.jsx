@@ -1,5 +1,13 @@
-import {  useEffect, useState } from 'react';
-import { useParams, useNavigate, Link, Outlet } from 'react-router-dom';
+// import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
+
+import {
+  useParams,
+  useNavigate,
+  Link,
+  Outlet,
+  useLocation,
+} from 'react-router-dom';
 
 // import Loader from './Loader/Loader';
 
@@ -10,9 +18,14 @@ const SingleMoviePage = () => {
   // const [loading, setLoading] = useState(false);
   const [movieData, setMovieData] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from  = location.state?.from || '/' ;
 
   const params = useParams();
-  console.log('SingleMoviePage', params);
+  console.log('SingleMoviePage   location ', location);
+  console.log('SingleMoviePage    from', from);
+  console.log('SingleMoviePage  navigate, ', navigate);
+
   const { media_type, id } = params;
   useEffect(() => {
     const fetchByIDType = async () => {
@@ -34,19 +47,15 @@ const SingleMoviePage = () => {
   }
 
   console.log('SingleMoviePage   movieData', movieData);
-  const {
-    poster_path,
-    release_date,
-    first_air_date,
-    vote_average,
-    genres,
-  } = movieData;
+  const { poster_path, release_date, first_air_date, vote_average, genres } =
+    movieData;
 
   console.log('poster_path', poster_path);
   const urlImage = makeImageUrl(poster_path);
-  const date = release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4) 
+  const date = release_date
+    ? release_date.slice(0, 4)
+    : first_air_date.slice(0, 4);
   // const title =
-
 
   const popularityRound = Math.round(parseInt(vote_average * 10));
 
@@ -54,11 +63,13 @@ const SingleMoviePage = () => {
   genres.forEach(({ name }) => {
     genresArray = genresArray + name + ' ';
   });
-  // const goBack = useCallback(() => navigate(-1), [navigate]);
+
+  const goBack = () => navigate(from);
+  // const goBack = useCallback(() => navigate(from), [navigate]);
 
   return (
     <>
-      <button onClick={() => navigate(-1)}>Go back</button>
+      <button onClick={goBack}>Go back</button>
       <div className={styles.div}>
         <img src={urlImage} alt="poster" />
         <div>
@@ -75,10 +86,10 @@ const SingleMoviePage = () => {
       </div>
       <ul className={styles.ul}>
         Additional information
-        <Link className={styles.li} to="cast">
+        <Link className={styles.li} to="cast" state={{ from }}>
           Cast
         </Link>
-        <Link className={styles.li} to="reviews">
+        <Link className={styles.li} to="reviews" state={{ from }}>
           Reviews
         </Link>
         <Outlet />
