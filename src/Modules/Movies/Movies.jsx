@@ -106,9 +106,10 @@ const Movies = () => {
     )
   );
   return (
-    <ul className={styles.gallery}>
-      {elements}
-    </ul>
+    <>
+      <h2>Trending today</h2>
+      <ul className={styles.gallery}>{elements}</ul>
+    </>
   );
 };
 
