@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './movies.module.scss';
 
@@ -6,24 +6,24 @@ import styles from './movies.module.scss';
 // import Image from './Image/Image';
 
 // import Searchbar from './Searchbar/Searchbar';
-import MoviesList from './MoviesList/MoviesList';
+// import MoviesList from './MoviesList/MoviesList';
 import { homePageMovies } from '../../shared/services/movies-api';
-import { searchNewImages } from '../../shared/services/movies-api';
-import Button from './ButtonLoad/ButtonLoad';
-import Loader from './Loader/Loader';
+// import { searchNewImages } from '../../shared/services/movies-api';
+// import Button from './ButtonLoad/ButtonLoad';
+// import Loader from './Loader/Loader';
 
 // import './movies-list.module.scss';
 
 const Movies = () => {
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
 
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState(null);
-  const [total, setTotal] = useState(0);
-  const per_page = 20;
+  // const [page, setPage] = useState(1);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
+  // const [image, setImage] = useState(null);
+  // const [total, setTotal] = useState(0);
+  // const per_page = 20;
   const [items, setItems] = useState([]);
   //   () => {
   //   const fetchImagesStart = async () => {
@@ -48,17 +48,17 @@ const Movies = () => {
     // if (search) {
       const fetchImages = async () => {
         try {
-          setLoading(true);
+          // setLoading(true);
           const { data } = await homePageMovies();
           const results = [...data.results] ? [...data.results] : [];
           // console.log('results', results);
-          setTotal(0);
+          // setTotal(0);
           setItems([ ...results]);
           // console.log('results useEffect', items);
-        } catch (error) {
-          setError(error.message);
+        } catch ({response}) {
+          console.log(response.error.message);
         } finally {
-          setLoading(false);
+          // setLoading(false);
         }
       };
       fetchImages();

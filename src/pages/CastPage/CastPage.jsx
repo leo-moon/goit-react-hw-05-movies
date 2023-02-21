@@ -19,7 +19,7 @@ const CastPage = () => {
       }
     };
     searchCast();
-  }, []);
+  }, [media_type, id]);
   console.log(data);
   const basicUrl = 'https://image.tmdb.org/t/p/w500';
   const elements = data.map(({ id, name, profile_path, character }) => (
@@ -27,7 +27,7 @@ const CastPage = () => {
       <img
         className={styles.cast}
         src={basicUrl + profile_path}
-        alt="    actor photo"
+        alt="actor"
       />
       <div>
         <h3>{name}</h3>
