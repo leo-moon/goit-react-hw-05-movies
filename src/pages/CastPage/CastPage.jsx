@@ -31,7 +31,9 @@ const CastPage = () => {
       />
       <div>
         <h3>{name}</h3>
-        <h4>Character: {character}</h4>
+        <h4>
+          {character  && `Character: ${character}`}
+        </h4>
       </div>
     </li>
   ));
