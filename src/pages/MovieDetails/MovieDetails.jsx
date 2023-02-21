@@ -12,7 +12,7 @@ import {
 // import Loader from './Loader/Loader';
 
 import { searchByIdType, makeImageUrl } from '../../shared/services/movies-api';
-import styles from './single-movie-page.module.css';
+import styles from './movie-details.module.css';
 
 const SingleMoviePage = () => {
   // const [loading, setLoading] = useState(false);
