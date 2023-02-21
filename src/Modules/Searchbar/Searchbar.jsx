@@ -8,7 +8,7 @@ import { searchByTitle } from '../../shared/services/movies-api';
 const Searchbar = ({ media_type }) => {
   const [searchParams, setSearchParams] = useSearchParams('');
   const search = searchParams.get('search');
-  // const page = searchParams.get('page');
+  const page = searchParams.get('page');
 
   // const [page, setPage] = useState(1);
   const [items, setItems] = useState();
@@ -32,13 +32,16 @@ const Searchbar = ({ media_type }) => {
       };
       fetchImages();
     }
-  }, [setItems]);
+  }, [search, media_type]);
 
-  const searchImages = useCallback(({ search }) => {
-    setSearchParams({ search, page: 1 });
-    setItems([]);
-  }, []);
-
+  const searchImages = useCallback(
+    ({ search }) => {
+      setSearchParams({ search, page: 1 });
+      setItems([]);
+    },
+    [setSearchParams]
+  );
+console.log(page);
   // const showBigImage = useCallback(({ largeImageURL }) => {
   //   setImageBig(largeImageURL);
   //   setShowModal(true);

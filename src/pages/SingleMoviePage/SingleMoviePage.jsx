@@ -27,7 +27,7 @@ const SingleMoviePage = () => {
       }
     };
     fetchByIDType();
-  }, []);
+  }, [media_type, id]);
 
   if (!movieData) {
     return;
