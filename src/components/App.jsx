@@ -5,10 +5,10 @@ import UserRoutes from './UserRoutes';
 
 export function App() {
   return (
-    <BrowserRouter basename="/leo-moon.github.io/goit-react-hw-05-movies/">
+    <BrowserRouter basename="/">
       <Navbar />
       <UserRoutes />
     </BrowserRouter>
   );
 }
-// basename = '/https://leo-moon.github.io/goit-react-hw-05-movies/';
+// basename = '/leo-moon.github.io/goit-react-hw-05-movies/';  
